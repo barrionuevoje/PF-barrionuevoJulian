@@ -1,0 +1,18 @@
+<form [formGroup]="alumnoForm" (ngSubmit)="guardarAlumno()">
+    <mat-form-field>
+      <input matInput placeholder="Nombre" formControlName="nombre">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Apellido" formControlName="apellido">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Curso" formControlName="curso">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" formControlName="fechaNacimiento">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Guardar</button>
+  </form>
+  

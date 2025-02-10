@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Agregar Alumno</h2>
+<form [formGroup]="alumnoForm">
+  <mat-form-field appearance="fill">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="nombre" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Apellido</mat-label>
+    <input matInput formControlName="apellido" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Curso</mat-label>
+    <input matInput formControlName="curso" />
+  </mat-form-field>
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="cancelar()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="guardar()">Guardar</button>
+  </div>
+</form>
