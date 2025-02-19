@@ -10,7 +10,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { ChangeDetectorRef } from '@angular/core';
-import { Router } from '@angular/router'; // <-- IMPORTA Router
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-lista-cursos',
@@ -39,7 +39,7 @@ export class ListaCursosComponent implements OnInit {
     private dialog: MatDialog,
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
-    private router: Router // <-- INYECTAMOS Router
+    private router: Router 
   ) {}
 
   ngOnInit(): void {
@@ -100,7 +100,7 @@ export class ListaCursosComponent implements OnInit {
     this.abrirFormulario(curso);
   }
 
-  // 📌 Método para navegar al detalle del curso
+  // Método para navegar al detalle del curso
   verDetalle(id: number): void {
     this.router.navigate(['/cursos/detalle', id]);
   }

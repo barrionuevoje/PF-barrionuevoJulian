@@ -5,8 +5,8 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog'; // Materi
 import { MatTableDataSource } from '@angular/material/table';
 import { Component, OnInit } from '@angular/core';
 import { AlumnosService } from '../../../services/alumnos.service';
-import { AgregarAlumnoComponent } from '../agregar-alumno/agregar-alumno.component'; // Reutilizamos este componente para editar
-import { Router } from '@angular/router'; // <-- IMPORTA Router
+import { AgregarAlumnoComponent } from '../agregar-alumno/agregar-alumno.component'; 
+import { Router } from '@angular/router'; // 
 
 @Component({
   selector: 'app-lista-alumnos',
@@ -22,7 +22,7 @@ export class ListaAlumnosComponent implements OnInit {
   constructor(
     private alumnosService: AlumnosService,
     private dialog: MatDialog,
-    private router: Router // <-- INYECTAMOS Router
+    private router: Router 
   ) {}
 
   ngOnInit(): void {

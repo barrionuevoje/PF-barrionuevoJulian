@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service'; // Asegúrate de importar el AuthService
+import { AuthService } from '../../services/auth.service'; 
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms'; // Importa el módulo correctamente
+import { ReactiveFormsModule } from '@angular/forms'; 
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,7 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder, 
     private router: Router, 
-    private authService: AuthService // Inyectamos el servicio de autenticación
+    private authService: AuthService 
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],

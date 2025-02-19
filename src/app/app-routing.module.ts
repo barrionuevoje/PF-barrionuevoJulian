@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component'; // Importa el LoginComponent
-import { AuthGuard } from '../app/components/guards/auth.guard'; // Importa el guard de autenticación
+import { LoginComponent } from './components/login/login.component'; 
+import { AuthGuard } from '../app/components/guards/auth.guard'; 
 
 const routes: Routes = [
   // Ruta de Login (página pública, sin AuthGuard)

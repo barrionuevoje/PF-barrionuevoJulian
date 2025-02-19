@@ -9,7 +9,7 @@ export class AuthService {
   constructor(private router: Router) {}
 
   login(username: string, password: string): boolean {
-    if (password === 'password') {  // Cambia esta lógica según tus necesidades
+    if (password === 'password') {  // Cambia esta lógica según las necesidades
       this.isAuthenticated = true;
       localStorage.setItem('user', JSON.stringify({ username }));
       return true;
