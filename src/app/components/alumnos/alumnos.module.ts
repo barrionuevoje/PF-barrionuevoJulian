@@ -13,7 +13,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
+import { DetalleAlumnoComponent } from './detalle-alumno/detalle-alumno.component';
 @NgModule({
   
   imports: [
@@ -30,7 +30,13 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatDatepickerModule,
     MatNativeDateModule,
     AbmAlumnosComponent,
-    ListaAlumnosComponent
+    ListaAlumnosComponent,
+    DetalleAlumnoComponent
+  ],
+  
+  declarations: [
+       
+  
   ],
 })
 export class AlumnosModule {}

@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Component, OnInit } from '@angular/core';
 import { AlumnosService } from '../../../services/alumnos.service';
 import { AgregarAlumnoComponent } from '../agregar-alumno/agregar-alumno.component'; // Reutilizamos este componente para editar
+import { Router } from '@angular/router'; // <-- IMPORTA Router
 
 @Component({
   selector: 'app-lista-alumnos',
@@ -20,7 +21,8 @@ export class ListaAlumnosComponent implements OnInit {
 
   constructor(
     private alumnosService: AlumnosService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router // <-- INYECTAMOS Router
   ) {}
 
   ngOnInit(): void {
@@ -63,5 +65,9 @@ export class ListaAlumnosComponent implements OnInit {
   eliminarAlumno(index: number): void {
     const updatedData = this.dataSource.data.filter((_, i) => i !== index); // Elimina el alumno por índice
     this.dataSource.data = updatedData; // Actualiza la fuente de datos
+  }
+
+  verDetalle(id: number): void {
+    this.router.navigate(['/alumnos/detalle', id]); // Navega al detalle del alumno
   }
 }

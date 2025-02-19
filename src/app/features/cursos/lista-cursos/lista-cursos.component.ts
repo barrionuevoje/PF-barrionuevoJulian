@@ -8,9 +8,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatTableModule } from '@angular/material/table';  // Importar MatTableModule
+import { MatTableModule } from '@angular/material/table';
 import { ChangeDetectorRef } from '@angular/core';
-
+import { Router } from '@angular/router'; // <-- IMPORTA Router
 
 @Component({
   selector: 'app-lista-cursos',
@@ -22,7 +22,7 @@ import { ChangeDetectorRef } from '@angular/core';
     MatDialogModule,
     CommonModule,
     ReactiveFormsModule,
-    MatTableModule  // Incluir MatTableModule
+    MatTableModule,
   ],
   templateUrl: './lista-cursos.component.html',
   styleUrls: ['./lista-cursos.component.scss'],
@@ -38,8 +38,8 @@ export class ListaCursosComponent implements OnInit {
     private cursosService: CursosService,
     private dialog: MatDialog,
     private fb: FormBuilder,
-    private cdr: ChangeDetectorRef  // Inyectamos ChangeDetectorRef
-
+    private cdr: ChangeDetectorRef,
+    private router: Router // <-- INYECTAMOS Router
   ) {}
 
   ngOnInit(): void {
@@ -73,25 +73,19 @@ export class ListaCursosComponent implements OnInit {
   guardarCurso(): void {
     if (this.cursoForm.valid) {
       const curso = this.cursoForm.value;
-  
+
       if (this.cursoAEditar) {
-        // Si hay un curso a editar
         const cursoEditado = { ...this.cursoAEditar, ...curso };
         this.cursosService.editarCurso(cursoEditado);
       } else {
-        // Si es un curso nuevo
         this.cursosService.agregarCurso(curso);
       }
-  
-      this.cargarCursos(); // Recargamos la lista de cursos
-      this.formVisible = false; // Ocultamos el formulario
-  
-      // Forzamos la detección de cambios para que la vista se actualice inmediatamente
+
+      this.cargarCursos();
+      this.formVisible = false;
       this.cdr.detectChanges();
     }
   }
-  
-  
 
   cancelar(): void {
     this.formVisible = false;
@@ -104,5 +98,10 @@ export class ListaCursosComponent implements OnInit {
 
   editarCurso(curso: any): void {
     this.abrirFormulario(curso);
+  }
+
+  // 📌 Método para navegar al detalle del curso
+  verDetalle(id: number): void {
+    this.router.navigate(['/cursos/detalle', id]);
   }
 }

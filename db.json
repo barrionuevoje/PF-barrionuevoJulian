@@ -1,0 +1,7 @@
+{
+    "cursos": [
+      { "id": 1, "nombre": "Matemáticas", "descripcion": "Curso de matemáticas" },
+      { "id": 2, "nombre": "Historia", "descripcion": "Curso de historia" }
+    ]
+  }
+  

@@ -9,6 +9,10 @@ import { CursosRoutingModule } from './lista-cursos/cursos-routing.module';
 import { ListaCursosComponent } from './lista-cursos/lista-cursos.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { DetalleCursoComponent } from './detalle-curso/detalle-curso.component';
+import { RouterModule } from '@angular/router'; 
+import { AlumnosRoutingModule } from '../../components/alumnos/alumnos-routing.module'; // Asegúrate de que esta importación es correcta
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -21,7 +25,13 @@ import { MatInputModule } from '@angular/material/input';
     ListaCursosComponent,  
     CursosRoutingModule ,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    RouterModule,
+    DetalleCursoComponent,
+    HttpClientModule
+  ],
+  declarations: [
+    
   ],
 })
 export class CursosModule {}

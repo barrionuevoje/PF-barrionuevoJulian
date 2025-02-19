@@ -17,7 +17,9 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NombreCompletoPipe } from '../shared/pipe/nombre-completo.pipe';
 import { CursosModule } from './features/cursos/cursos.module';
-import { MatIconModule } from '@angular/material/icon';  // Agrega esta línea
+import { MatIconModule } from '@angular/material/icon';
+import { LoginComponent } from '../app/components/login/login.component';  // Agrega esta línea
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -25,6 +27,7 @@ import { MatIconModule } from '@angular/material/icon';  // Agrega esta línea
     AppComponent,
     NavbarComponent,
     ToolbarComponent,
+    
     
   ],
   imports: [
@@ -41,7 +44,9 @@ import { MatIconModule } from '@angular/material/icon';  // Agrega esta línea
     MatTableModule,
     CommonModule,
     RouterModule,
-    CursosModule
+    CursosModule,
+    LoginComponent,
+    HttpClientModule
     
   ],
   exports: [NavbarComponent, ToolbarComponent],

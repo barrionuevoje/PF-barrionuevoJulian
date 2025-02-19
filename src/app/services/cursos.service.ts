@@ -1,32 +1,32 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CursosService {
-  private cursos = [
-    { id: 1, nombre: 'Matemáticas', descripcion: 'Curso de matemáticas' },
-    { id: 2, nombre: 'Historia', descripcion: 'Curso de historia' },
-  ];
+  private apiUrl = 'http://localhost:3000/cursos';  // URL de la API local
 
-  getCursos() {
-    return of(this.cursos);  // No necesitamos Observable aquí si ya estamos usando la detección de cambios
+  constructor(private http: HttpClient) {}
+
+  // Obtener cursos desde la API
+  getCursos(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
   }
 
-  agregarCurso(curso: any) {
-    curso.id = this.cursos.length + 1;  // Asegura que el id sea único
-    this.cursos.push(curso);
+  // Agregar un curso
+  agregarCurso(curso: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, curso);
   }
 
+  // Eliminar un curso
   eliminarCurso(id: number) {
-    this.cursos = this.cursos.filter(curso => curso.id !== id);
+    return this.http.delete(`http://localhost:3000/cursos/${id}`);
   }
 
-  editarCurso(curso: any) {
-    const index = this.cursos.findIndex(c => c.id === curso.id);
-    if (index !== -1) {
-      this.cursos[index] = curso;
-    }
+  // Editar un curso
+  editarCurso(curso: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${curso.id}`, curso);
   }
 }
