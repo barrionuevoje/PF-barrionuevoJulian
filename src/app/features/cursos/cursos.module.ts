@@ -1,36 +1,39 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table'; // Material Table
-import { MatButtonModule } from '@angular/material/button'; // Material Buttons
-import { MatDialogModule } from '@angular/material/dialog'; // Material Dialog
-import { ReactiveFormsModule } from '@angular/forms'; // Reactive Forms
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CursosRoutingModule } from './lista-cursos/cursos-routing.module';
 import { ListaCursosComponent } from './lista-cursos/lista-cursos.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DetalleCursoComponent } from './detalle-curso/detalle-curso.component';
-import { RouterModule } from '@angular/router'; 
-import { AlumnosRoutingModule } from '../../components/alumnos/alumnos-routing.module'; 
+import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-
+import { StoreModule } from '@ngrx/store';
+import { cursosReducer } from './store/cursos.reducer'; // Importa el reducer
+import { EffectsModule } from '@ngrx/effects';
+import { CursosEffects } from './store/cursos.effects';
 
 @NgModule({
   imports: [
     CommonModule,
-    MatTableModule,       // Importa MatTableModule para usar las tablas
-    MatButtonModule,      // Importa MatButtonModule para los botones
-    MatDialogModule,      // Si estás usando diálogos
-    ReactiveFormsModule,  // Si usas formularios reactivos
-    ListaCursosComponent,  
-    CursosRoutingModule ,
+    MatTableModule,
+    MatButtonModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    ListaCursosComponent,
+    CursosRoutingModule,
     MatFormFieldModule,
     MatInputModule,
     RouterModule,
     DetalleCursoComponent,
-    HttpClientModule
-  ],
-  declarations: [
+    HttpClientModule,
+    StoreModule.forFeature('cursos', cursosReducer), // Registra el store de cursos
+    EffectsModule.forFeature([CursosEffects]),
     
   ],
+  declarations: [],
 })
 export class CursosModule {}

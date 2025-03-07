@@ -14,6 +14,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { DetalleAlumnoComponent } from './detalle-alumno/detalle-alumno.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { AlumnosEffects } from './store/alumnos.effects';
+import { alumnosReducer } from '../alumnos/store/alumnos.reducer';
+
 @NgModule({
   
   imports: [
@@ -31,7 +36,9 @@ import { DetalleAlumnoComponent } from './detalle-alumno/detalle-alumno.componen
     MatNativeDateModule,
     AbmAlumnosComponent,
     ListaAlumnosComponent,
-    DetalleAlumnoComponent
+    DetalleAlumnoComponent,
+    StoreModule.forFeature('alumnos', alumnosReducer),
+    EffectsModule.forFeature([AlumnosEffects])
   ],
   
   declarations: [

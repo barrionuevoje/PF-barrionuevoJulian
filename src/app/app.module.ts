@@ -20,6 +20,11 @@ import { CursosModule } from './features/cursos/cursos.module';
 import { MatIconModule } from '@angular/material/icon';
 import { LoginComponent } from '../app/components/login/login.component';  
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { alumnosReducer } from "../app/components/alumnos/store/alumnos.reducer";
+import { AlumnosEffects } from "../app/components/alumnos/store/alumnos.effects";
+
 
 
 @NgModule({
@@ -46,7 +51,11 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule,
     CursosModule,
     LoginComponent,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot({}, {}), 
+    EffectsModule.forRoot([]),
+    StoreModule.forRoot({ alumnos: alumnosReducer }),
+    EffectsModule.forRoot([AlumnosEffects])
     
   ],
   exports: [NavbarComponent, ToolbarComponent],

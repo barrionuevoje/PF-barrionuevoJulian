@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CursosService } from '../../../services/cursos.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -8,9 +7,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router'; 
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import * as CursosActions from '../store/cursos.actions';
+import { CursosState } from '../store/cursos.reducer';
+import { selectCursos, selectLoading } from '../store/cursos.selectors';
 
 @Component({
   selector: 'app-lista-cursos',
@@ -28,14 +32,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./lista-cursos.component.scss'],
 })
 export class ListaCursosComponent implements OnInit {
-  cursos: any[] = [];
+  cursos$: Observable<any[]> = new Observable<any[]>(); // Inicializamos el observable
+  loading$: Observable<boolean> = new Observable<boolean>(); // Inicializamos el observable
   displayedColumns: string[] = ['id', 'nombre', 'descripcion', 'acciones'];
   cursoForm!: FormGroup;
   formVisible: boolean = false;
   cursoAEditar: any = null;
+  dataSource = new MatTableDataSource<any>();
 
   constructor(
-    private cursosService: CursosService,
+    private store: Store<CursosState>, // Inyectamos el store
     private dialog: MatDialog,
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
@@ -43,16 +49,20 @@ export class ListaCursosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.cargarCursos();
+    this.cursos$ = this.store.select(selectCursos);
+    this.loading$ = this.store.select(selectLoading);
+
+    this.store.dispatch(CursosActions.cargarCursos());
+
+    this.cursos$.subscribe(cursos => {
+      if (cursos) {
+        this.dataSource.data = cursos;
+      }
+    });
+
     this.cursoForm = this.fb.group({
       nombre: ['', Validators.required],
       descripcion: ['', Validators.required],
-    });
-  }
-
-  cargarCursos(): void {
-    this.cursosService.getCursos().subscribe((data) => {
-      this.cursos = data;
     });
   }
 
@@ -76,12 +86,11 @@ export class ListaCursosComponent implements OnInit {
 
       if (this.cursoAEditar) {
         const cursoEditado = { ...this.cursoAEditar, ...curso };
-        this.cursosService.editarCurso(cursoEditado);
+        this.store.dispatch(CursosActions.editarCurso({ curso: cursoEditado }));
       } else {
-        this.cursosService.agregarCurso(curso);
+        this.store.dispatch(CursosActions.agregarCurso({ curso }));
       }
 
-      this.cargarCursos();
       this.formVisible = false;
       this.cdr.detectChanges();
     }
@@ -92,15 +101,13 @@ export class ListaCursosComponent implements OnInit {
   }
 
   eliminarCurso(id: number): void {
-    this.cursosService.eliminarCurso(id);
-    this.cargarCursos();
+    this.store.dispatch(CursosActions.eliminarCurso({ id }));
   }
 
   editarCurso(curso: any): void {
     this.abrirFormulario(curso);
   }
 
-  // Método para navegar al detalle del curso
   verDetalle(id: number): void {
     this.router.navigate(['/cursos/detalle', id]);
   }

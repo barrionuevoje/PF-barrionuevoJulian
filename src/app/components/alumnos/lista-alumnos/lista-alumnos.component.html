@@ -2,6 +2,11 @@
   <button mat-raised-button color="primary" (click)="agregarAlumno()">Agregar Alumno</button>
 </div>
 
+<!-- Mensaje de carga -->
+<div *ngIf="loading$ | async" class="loading">
+  Cargando alumnos...
+</div>
+
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef> ID </th>
@@ -29,13 +34,9 @@
       <button mat-button color="accent" (click)="editarAlumno(alumno)">Editar</button>
       <button mat-button color="warn" (click)="eliminarAlumno(alumno.id)">Eliminar</button>
       <button mat-button color="primary" (click)="verDetalle(alumno.id)">Ver Detalle</button>
-
     </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-
 </table>
-
